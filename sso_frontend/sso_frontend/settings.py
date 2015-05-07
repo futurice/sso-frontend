@@ -326,91 +326,71 @@ LOGGING = {
         },
         'logfile_main': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/main",
-            'maxBytes': 50000000,
-            'backupCount': 100,
             'formatter': 'standard',
         },
         'logfile_audit': {
             'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/audit",
-            'maxBytes': 50000000,
-            'backupCount': 100,
             'formatter': 'plain',
         },
 
         'logfile_saml': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/saml",
-            'maxBytes': 50000000,
-            'backupCount': 100,
             'formatter': 'standard',
         },
 
         'logfile_openid': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/openid",
-            'maxBytes': 50000000,
-            'backupCount': 100,
             'formatter': 'standard',
         },
 
         'logfile_users': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/users",
-            'maxBytes': 50000000,
-            'backupCount': 100,
             'formatter': 'standard',
         },
 
         'logfile_django': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/django",
-            'maxBytes': 50000000,
-            'backupCount': 100,
             'formatter': 'standard',
         },
 
         'logfile_errors': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/errors",
-            'maxBytes': 50000000,
-            'backupCount': 100,
             'formatter': 'standard',
         },
 
         'logfile_timing': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/timing",
-            'maxBytes': 500000000,
-            'backupCount': 100,
             'formatter': 'standard',
         },
 
         'logfile_p0f': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/p0f_data",
-            'maxBytes': 500000000,
-            'backupCount': 100,
             'formatter': 'plain',
         },
 
 
         'logfile_request_timing': {
             'level':'INFO',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logs/request_timing",
-            'maxBytes': 500000000,
-            'backupCount': 100,
             'formatter': 'standard',
         },
 
