@@ -197,7 +197,7 @@ class BrowserMiddleware(object):
 
         request.browser = get_browser(request)
         if hasattr(request, "browser") and request.browser and ua != request.browser.ua:
-            if not browser_ua_ignored(ua):
+            if not self.browser_ua_ignored(ua):
                 request.browser.change_ua(request, ua)
 
     SAFARI_CFNETWORK_UA = re.compile(".*CFNetwork.*")
