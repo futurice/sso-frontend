@@ -197,7 +197,15 @@ class BrowserMiddleware(object):
 
         request.browser = get_browser(request)
         if hasattr(request, "browser") and request.browser and ua != request.browser.ua:
-            request.browser.change_ua(request, ua)
+            if not browser_ua_ignored(ua):
+                request.browser.change_ua(request, ua)
+
+    SAFARI_CFNETWORK_UA = re.compile(".*CFNetwork.*")
+    def browser_ua_ignored(self, ua):
+        """ Safari double User-Agent issues """
+        def is_cfnetwork(ua):
+            return bool(SAFARI_CFNETWORK_UA.match(ua))
+        return any(fn(ua) for fn in [is_cfnetwork])
 
     @sd.timer("BrowserMiddleware.process_response")
     def process_response(self, request, response):
