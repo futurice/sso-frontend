@@ -1,10 +1,12 @@
 import os.path
+import ast
 
 # Django settings for sso_frontend project.
 INTERNAL_IPS=["127.0.0.1"]
 URL_PREFIX = ""
 
-DEBUG = False
+BASE_DIR = os.getenv("BASE_DIR", os.path.dirname(os.path.dirname(__file__)))
+DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -24,17 +26,16 @@ HUEY = {
     'consumer_options': {'workers': 4},
 }
 
-# DATABASES are configured in local_settings. Use mysql/postgresql instead of sqlite3
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#        'NAME': 'sso',
-#        'USER': '',
-#        'PASSWORD': '',
-#        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-#        'PORT': '',                      # Set to empty string for default.
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # mysql,postgresql_psycopg2,sqlite3
+        'NAME': os.getenv('DB_NAME', 'login'),
+        'USER': os.getenv('DB_USER', 'login'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'login'),
+        'HOST': os.getenv('DB_HOST', 'mysql'),
+        'PORT': os.getenv('DB_PORT', '3306'),
+    }
+}
 
 
 CACHES = {
@@ -102,6 +103,8 @@ CACHES = {
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '../')
 GEOIP_DB = PROJECT_ROOT+"data/GeoLite2-City.mmdb"
+LOG_DIR = os.getenv("LOG_DIR", PROJECT_ROOT + "/logs/")
+SAML_CERTS_DIR = os.getenv("SAML_CERTS_DIR", PROJECT_ROOT)
 
 
 LOGIN_REDIRECT_URL = URL_PREFIX+'/idp/sso/post/response/preview/'
@@ -111,8 +114,8 @@ SAML2IDP_CONFIG = {
     'autosubmit': False,
     'issuer': 'https://login.futurice.com',
     'signing': True,
-    'certificate_file': PROJECT_ROOT + '/saml2idp/keys/certificate.pem',
-    'private_key_file': PROJECT_ROOT + '/saml2idp/keys/private-key.pem'
+    'certificate_file': SAML_CERTS_DIR + '/saml2idp/keys/certificate.pem',
+    'private_key_file': SAML_CERTS_DIR + '/saml2idp/keys/private-key.pem'
 }
 SAML2IDP_REMOTES = {
     # Group of SP CONFIGs.
@@ -135,7 +138,7 @@ SHORT_DATETIME_FORMAT='Y-m-d H:i'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ast.literal_eval(os.getenv('ALLOWED_HOSTS', "[]"))
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -178,7 +181,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), '../static')
+STATIC_ROOT = os.getenv("STATIC_ROOT", os.path.join(BASE_DIR, 'static'))
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -327,62 +330,62 @@ LOGGING = {
         'logfile_main': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/main",
+            'filename': LOG_DIR + "main",
             'formatter': 'standard',
         },
         'logfile_audit': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/audit",
+            'filename': LOG_DIR + "audit",
             'formatter': 'plain',
         },
 
         'logfile_saml': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/saml",
+            'filename': LOG_DIR + "saml",
             'formatter': 'standard',
         },
 
         'logfile_openid': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/openid",
+            'filename': LOG_DIR + "openid",
             'formatter': 'standard',
         },
 
         'logfile_users': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/users",
+            'filename': LOG_DIR + "users",
             'formatter': 'standard',
         },
 
         'logfile_django': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/django",
+            'filename': LOG_DIR + "django",
             'formatter': 'standard',
         },
 
         'logfile_errors': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/errors",
+            'filename': LOG_DIR + "errors",
             'formatter': 'standard',
         },
 
         'logfile_timing': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/timing",
+            'filename': LOG_DIR + "timing",
             'formatter': 'standard',
         },
 
         'logfile_p0f': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/p0f_data",
+            'filename': LOG_DIR + "p0f_data",
             'formatter': 'plain',
         },
 
@@ -390,7 +393,7 @@ LOGGING = {
         'logfile_request_timing': {
             'level':'INFO',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logs/request_timing",
+            'filename': LOG_DIR + "request_timing",
             'formatter': 'standard',
         },
 
@@ -488,11 +491,13 @@ OPENID_PROVIDER_AX_EXTENSION=True
 OPENID_FAILED_DISCOVERY_AS_VALID=False
 OPENID_TRUSTED_ROOTS=[]
 
-from local_settings import *
+SECRET_KEY = os.getenv('SECRET_KEY')
+P0FSOCKET = "/var/local/p0f/p0f.sock"
+
 try:
-   pass
-except ImportError:
-    pass
+    from local_settings import *
+except ImportError as e:
+    print(e)
 
 check_keys = ["FQDN", "PUBTKT_PRIVKEY", "PUBTKT_PUBKEY", "SAML_PUBKEY", "LDAP_SERVER", "LDAP_USER_BASE_DN", "LDAP_GROUPS_BASE_DN", "NOTICES_FROM_EMAIL"]
 for key_name in check_keys:

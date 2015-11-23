@@ -17,7 +17,7 @@ Installation
 2. Install requirements: ```pip install -r requirements.txt```
 3. Download GeoIP-city database from http://dev.maxmind.com/geoip/geoip2/geolite2/ . Store GeoLite2-City.mmdb to ```sso_frontend/data``` directory.
 4. Configure your local settings: ```mv sso_frontend/local_settings.py.sample sso_frontend/local_settings.py; vim sso_frontend/local_settings.py```
-5. Implement your own SMS gateway: see ```login_frontend/send_sms.py.sample```.
+5. Implement your own SMS gateway: see ```login_frontend/send_sms.py```. Set envvars `SMS_GATEWAY_URL`, `SMS_GATEWAY_URL_POST`.
 6. Find and replace branding: ```grep -i futurice * -R```
 7. Implement your own user sync from user directory (see ```login_frontend/management/commands/refresh_users.py``` and ```login_frontend/utils.py```).
 8. Configure uWSGI and nginx. Example configuration files available under ```example_configurations``` folder. Modifying large_client_header_buffers is essential, as valid OpenID/SAML requests easily exceed the default limit.
