@@ -98,7 +98,7 @@ def pubtkt_logout(request, response = None):
     """ Sets pubtkt logout cookie. """
     if response:
         custom_log(request, "pubtkt_logout: Unsetting pubtkt cookie", level="debug")
-        response.set_cookie("auth_pubtkt", **{"value": "invalid", "secure": True, "httponly": True, "domain": ".futurice.com"})
+        response.set_cookie("auth_pubtkt", **{"value": "invalid", "secure": True, "httponly": True, "domain": ".%s"%settings.TOP_DOMAIN})
     try:
         if request.browser is None:
             custom_log(request, "pubtkt_logout: No browser set. No further actions. IP: %s" % request.remote_ip, level="debug")
@@ -187,7 +187,7 @@ def pubtkt(request):
         valid_until = int(time.time() + expiration_in_seconds)
         tokens = json.loads(browser.user.user_tokens)
         ticket = auth_pubtkt.create_ticket(privkey, browser.user.username, valid_until, tokens=tokens)
-        cookies.append(("auth_pubtkt", {"value": urllib.quote(ticket), "secure": True, "httponly": True, "domain": ".futurice.com"}))
+        cookies.append(("auth_pubtkt", {"value": urllib.quote(ticket), "secure": True, "httponly": True, "domain": ".%s"%settings.TOP_DOMAIN}))
         ret["back_url"] = back_url
         invalid_extensions = (".jpg", ".png", ".js", ".json")
         for extension in invalid_extensions:

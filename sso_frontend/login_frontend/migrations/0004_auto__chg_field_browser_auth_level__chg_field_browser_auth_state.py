@@ -10,10 +10,25 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         # Changing field 'Browser.auth_level'
-        db.alter_column(u'login_frontend_browser', 'auth_level', self.gf('django.db.models.fields.DecimalField')(max_digits=2, decimal_places=0))
+        # db.alter_column(u'login_frontend_browser', 'auth_level', self.gf('django.db.models.fields.DecimalField')(max_digits=2, decimal_places=0))
+        db.execute(
+            'ALTER TABLE "login_frontend_browser" '
+            'ALTER COLUMN "auth_level" DROP DEFAULT, '
+            'ALTER COLUMN "auth_level" DROP NOT NULL, '
+            'ALTER COLUMN "auth_level" TYPE NUMERIC(2, 0) '
+            'USING CAST(auth_level as numeric)'
+        )
+        # ALTER TABLE "login_frontend_browser" ALTER COLUMN "auth_level" TYPE numeric(2, 0), ALTER COLUMN "auth_level" SET NOT NULL, ALTER COLUMN "auth_level" DROP DEFAULT;
 
         # Changing field 'Browser.auth_state'
-        db.alter_column(u'login_frontend_browser', 'auth_state', self.gf('django.db.models.fields.DecimalField')(max_digits=2, decimal_places=0))
+        # db.alter_column(u'login_frontend_browser', 'auth_state', self.gf('django.db.models.fields.DecimalField')(max_digits=2, decimal_places=0))
+        db.execute(
+            'ALTER TABLE "login_frontend_browser" '
+            'ALTER COLUMN "auth_state" DROP DEFAULT, '
+            'ALTER COLUMN "auth_state" DROP NOT NULL, '
+            'ALTER COLUMN "auth_state" TYPE NUMERIC(2, 0) '
+            'USING CAST(auth_state as numeric)'
+        )
 
     def backwards(self, orm):
 

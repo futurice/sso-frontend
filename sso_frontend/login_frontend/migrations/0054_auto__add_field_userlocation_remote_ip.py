@@ -9,9 +9,13 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding field 'UserLocation.remote_ip'
-        db.add_column(u'login_frontend_userlocation', 'remote_ip',
-                      self.gf('django.db.models.fields.GenericIPAddressField')(default=' ', max_length=39),
-                      keep_default=False)
+        # db.add_column(u'login_frontend_userlocation', 'remote_ip',
+        #               self.gf('django.db.models.fields.GenericIPAddressField')(default=' ', max_length=39),
+        #               keep_default=False)
+        db.execute(
+            'ALTER TABLE "login_frontend_userlocation" '
+            'ADD COLUMN "remote_ip" inet NOT NULL '
+        )
 
 
     def backwards(self, orm):

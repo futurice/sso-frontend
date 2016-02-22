@@ -225,7 +225,7 @@ def automatic_ping(request, **kwargs):
         if kwargs.get("external") and request.GET.get("location"):
             try:
                 parsed = urlparse.urlparse(request.GET.get("location"))
-                if parsed.hostname.endswith(".futurice.com"):
+                if parsed.hostname.endswith(".%s"%settings.TOP_DOMAIN):
                     response["Access-Control-Allow-Origin"] = "https://"+parsed.hostname
             except:
                 pass

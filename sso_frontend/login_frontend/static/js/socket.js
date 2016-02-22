@@ -2,7 +2,7 @@ var socket;
 $(document).ready(function (){
  try {
  var rand_id = Math.random();
- socket = io.connect('https://login.futurice.com');
+ socket = io.connect('https://DOMAIN');
  socket.on("connect", function() {
    bid_public = $.cookie("v2public-browserid");
    if (bid_public) {

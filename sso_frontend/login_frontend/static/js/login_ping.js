@@ -53,7 +53,7 @@ try {
         if ("hidden" in document) {
             hidden = document.hidden;
         }
-        login_ping_image.src = "https://login.futurice.com/ping/external/img?location="+encodeURIComponent(window.location)+"&t="+(new Date()).getTime()+"&activity="+login_window_current_status+"&hidden="+hidden+"&c="+login_ping_counter+"&r="+tab_id+"&u="+user_activity;
+        login_ping_image.src = "https://DOMAIN/ping/external/img?location="+encodeURIComponent(window.location)+"&t="+(new Date()).getTime()+"&activity="+login_window_current_status+"&hidden="+hidden+"&c="+login_ping_counter+"&r="+tab_id+"&u="+user_activity;
         login_ping_counter += 1;
         clearTimeout(login_ping_timeout);
         login_ping_last_sent = get_timestamp();
@@ -63,6 +63,6 @@ try {
 
 } catch(e) {
     i = new Image();
-    i.src = "https://login.futurice.com/ping/external/img?location="+encodeURIComponent(window.location)+"&t="+(new Date()).getTime()+"&error="+encodeURIComponent(""+e);
+    i.src = "https://DOMAIN/ping/external/img?location="+encodeURIComponent(window.location)+"&t="+(new Date()).getTime()+"&error="+encodeURIComponent(""+e);
 }
 })();

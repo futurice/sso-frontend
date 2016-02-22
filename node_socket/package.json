@@ -6,6 +6,5 @@
     "redis": ">= 0.10.1",
     "socket.io": ">= 0.9.16",
     "node-statsd": ">= 0.0.7"
-  },
-  "engine": "node 1.4.3"
+  }
 }

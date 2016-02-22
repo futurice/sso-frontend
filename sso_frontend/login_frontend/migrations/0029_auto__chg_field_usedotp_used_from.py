@@ -10,7 +10,15 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         # Changing field 'UsedOTP.used_from'
-        db.alter_column(u'login_frontend_usedotp', 'used_from', self.gf('django.db.models.fields.GenericIPAddressField')(max_length=39, null=True))
+        # db.alter_column(u'login_frontend_usedotp', 'used_from', self.gf('django.db.models.fields.GenericIPAddressField')(max_length=39, null=True))
+        # ALTER TABLE "login_frontend_usedotp" ALTER COLUMN "used_from" TYPE inet, ALTER COLUMN "used_from" DROP NOT NULL, ALTER COLUMN "used_from" DROP DEFAULT;
+        db.execute(
+            'ALTER TABLE "login_frontend_usedotp" '
+            'ALTER COLUMN "used_from" DROP DEFAULT, '
+            'ALTER COLUMN "used_from" DROP NOT NULL, '
+            'ALTER COLUMN "used_from" TYPE inet '
+            'USING CAST(used_from as inet)'
+        )
 
     def backwards(self, orm):
 

@@ -20,3 +20,4 @@ sso_frontend/saml2idp/keys/*.pem
 sso_frontend/static/CACHE
 sso_frontend/static/admin
 tags
+node_socket/node_modules/*

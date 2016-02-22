@@ -16,7 +16,7 @@ framework.
 import os
 import sys
 
-path = "/home/ssoservice/sso-frontend/sso_frontend"
+path = "/opt/app/sso_frontend"
 
 if not path in sys.path:
     sys.path.append(path)

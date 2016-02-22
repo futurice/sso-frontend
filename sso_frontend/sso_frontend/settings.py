@@ -9,6 +9,9 @@ BASE_DIR = os.getenv("BASE_DIR", os.path.dirname(os.path.dirname(__file__)))
 DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
 TEMPLATE_DEBUG = DEBUG
 
+TOP_DOMAIN = os.getenv("TOP_DOMAIN", "futurice.com")
+DOMAIN = os.getenv("DOMAIN", "login.futurice.com")
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -28,12 +31,12 @@ HUEY = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # mysql,postgresql_psycopg2,sqlite3
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql_psycopg2'), # mysql,postgresql_psycopg2,sqlite3
         'NAME': os.getenv('DB_NAME', 'login'),
         'USER': os.getenv('DB_USER', 'login'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'login'),
-        'HOST': os.getenv('DB_HOST', 'mysql'),
-        'PORT': os.getenv('DB_PORT', '3306'),
+        'HOST': os.getenv('DB_HOST', 'postgres'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
@@ -102,7 +105,7 @@ CACHES = {
 }
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '../')
-GEOIP_DB = PROJECT_ROOT+"data/GeoLite2-City.mmdb"
+GEOIP_DB = "/opt/static/GeoLite2-City.mmdb"
 LOG_DIR = os.getenv("LOG_DIR", PROJECT_ROOT + "/logs/")
 SAML_CERTS_DIR = os.getenv("SAML_CERTS_DIR", PROJECT_ROOT)
 
@@ -112,7 +115,7 @@ LOGIN_REDIRECT_URL = URL_PREFIX+'/idp/sso/post/response/preview/'
 # SAML2IDP metadata settings
 SAML2IDP_CONFIG = {
     'autosubmit': False,
-    'issuer': 'https://login.futurice.com',
+    'issuer': 'https://%s'%DOMAIN,
     'signing': True,
     'certificate_file': SAML_CERTS_DIR + '/saml2idp/keys/certificate.pem',
     'private_key_file': SAML_CERTS_DIR + '/saml2idp/keys/private-key.pem'
@@ -165,7 +168,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.getenv("MEDIA_ROOT", "/opt/media/")
 
 SESSION_COOKIE_AGE=24*60*60*7
 SESSION_SERIALIZER="django.contrib.sessions.serializers.PickleSerializer"
@@ -181,7 +184,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = os.getenv("STATIC_ROOT", os.path.join(BASE_DIR, 'static'))
+STATIC_ROOT = os.getenv("STATIC_ROOT", "/opt/static/")
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -508,5 +511,5 @@ for key_name in check_keys:
 
 if DEBUG and not FAKE_TESTING:
     INSTALLED_APPS += (
-     "debug_toolbar",
+     # "debug_toolbar",
     )
