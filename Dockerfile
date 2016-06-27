@@ -77,13 +77,26 @@ ENV CELERY_LOG_LEVEL WARNING
 ENV TOP_DOMAIN company.com
 ENV DOMAIN login.company.com
 ENV SCHEME http
-ENV SOCKET_IO_ADDR login.company.com
+ENV SOCKET_IO_ADDR localhost:8080
 ENV SOCKET_IO_SCHEME ws
+ENV SECURE_COOKIES false
+
+ENV DB_HOST 172.17.0.4
+
+ENV LDAP_USER_BASE_DN uid=%s,ou=People,dc=futurice,dc=com
+ENV LDAP_GROUPS_BASE_DN ou=Groups,dc=futurice,dc=com
+ENV LDAP_SERVER ldap://172.17.0.2
+
+ENV FUM_API_ENDPOINT http://172.17.0.3/api
+ENV DEBUG True
+
+
 
 RUN python sso_frontend/manage.py collectstatic --noinput
 
 EXPOSE 8000
+EXPOSE 3033
 
 USER root
 # CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
-CMD bash -C '/opt/app/scripts/start.sh'; /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+CMD bash -C '/opt/app/docker/start.sh'; /usr/bin/supervisord -c /etc/supervisor/supervisord.conf

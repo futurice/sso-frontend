@@ -1,0 +1,5 @@
+ FROM postgres:9.4
+
+ ENV POSTGRES_PASSWORD login
+ ENV POSTGRES_USER login
+ ENV POSTGRES_DB login

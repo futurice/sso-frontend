@@ -37,7 +37,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', 'login'),
         'USER': os.getenv('DB_USER', 'login'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'login'),
-        'HOST': os.getenv('DB_HOST', 'postgres'),
+        'HOST': os.getenv('DB_HOST', os.getenv("DB_HOST", "postgres")),
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
@@ -472,7 +472,7 @@ LDAP_IGNORE_SSL = os.getenv('LDAP_IGNORE_SSL', 'false').lower() == 'true'
 TOKEN_MAP = ast.literal_eval(os.getenv('TOKEN_MAP', "{}")) #  map of LDAP groups to pubtkt tokens. For example, {"Administrators": "admins", "ExternalContractors": "ext"}
 
 FAKE_TESTING = False # This uses LDAP stub and static SMS codes. Useful for smoke testing, but never set in production.
-ADMIN_CONTACT_EMAIL = os.getenv("ADMIN_CONTACT_EMAIL", "help@"%DOMAIN)
+ADMIN_CONTACT_EMAIL = os.getenv("ADMIN_CONTACT_EMAIL", "help@%s" % DOMAIN)
 
 SEND_EMAILS = True # send "new device" and "new authenticator" emails
 NOTICES_FROM_EMAIL = os.getenv('NOTICES_FROM_EMAIL', None)
@@ -486,7 +486,7 @@ PUBTKT_PUBKEY=None
 PUBTKT_ALLOWED_DOMAINS=[]
 SAML_PUBKEY=None
 
-FUM_API_ENDPOINT=None
+FUM_API_ENDPOINT=os.getenv('FUM_API_ENDPOINT', None)
 FUM_ACCESS_TOKEN=None
 
 EMERGENCY_FONT = PROJECT_ROOT+"data/Consolas.ttf"
