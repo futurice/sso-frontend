@@ -41,8 +41,6 @@ RUN localedef -i en_US -f UTF-8 en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-ENV TOP_DOMAIN company.com
-ENV DOMAIN login.company.com
 
 RUN mkdir -p /opt/app
 RUN chown app /opt/app
@@ -68,10 +66,6 @@ RUN mkdir -p /opt/app/sso_frontend/data
 
 ADD docker/supervisord.conf /etc/supervisor/supervisord.conf
 ADD docker/nginx.conf /etc/nginx/nginx.conf
-# regex settings
-RUN sed -i "s/DOMAIN/${DOMAIN}/" /etc/nginx.conf
-RUN sed -i "s/DOMAIN/${DOMAIN}/" /opt/static/js/login_ping.js
-RUN sed -i "s/DOMAIN/${DOMAIN}/" /opt/static/js/socket.js
 
 COPY . /opt/app/
 
@@ -80,10 +74,16 @@ ENV SECRET_KEY default_insecure_secret
 ENV STATIC_ROOT "/opt/static/"
 ENV LOG_DIR "/tmp/"
 ENV CELERY_LOG_LEVEL WARNING
+ENV TOP_DOMAIN company.com
+ENV DOMAIN login.company.com
+ENV SCHEME http
+ENV SOCKET_IO_ADDR login.company.com
+ENV SOCKET_IO_SCHEME ws
 
 RUN python sso_frontend/manage.py collectstatic --noinput
 
 EXPOSE 8000
 
 USER root
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+# CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD bash -C '/opt/app/scripts/start.sh'; /usr/bin/supervisord -c /etc/supervisor/supervisord.conf

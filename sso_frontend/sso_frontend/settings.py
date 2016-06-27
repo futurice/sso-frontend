@@ -11,6 +11,8 @@ TEMPLATE_DEBUG = DEBUG
 
 TOP_DOMAIN = os.getenv("TOP_DOMAIN", "futurice.com")
 DOMAIN = os.getenv("DOMAIN", "login.futurice.com")
+SCHEME = os.getenv("SCHEME", "http")
+SECURE_COOKIES = os.getenv('SECURE_COOKIES', 'true').lower() == 'true'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -115,7 +117,7 @@ LOGIN_REDIRECT_URL = URL_PREFIX+'/idp/sso/post/response/preview/'
 # SAML2IDP metadata settings
 SAML2IDP_CONFIG = {
     'autosubmit': False,
-    'issuer': 'https://%s'%DOMAIN,
+    'issuer': '%s://%s'%(SCHEME,DOMAIN),
     'signing': True,
     'certificate_file': SAML_CERTS_DIR + '/saml2idp/keys/certificate.pem',
     'private_key_file': SAML_CERTS_DIR + '/saml2idp/keys/private-key.pem'
@@ -256,8 +258,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "login_frontend.context_processors.add_session_info",
 )
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=SECURE_COOKIES
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https' if CSRF_COOKIE_SECURE else 'http')
 CSRF_COOKIE_HTTPONLY=True
 CSRF_FAILURE_VIEW="login_frontend.error_views.error_csrf"
 
@@ -278,8 +280,8 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
+COMPRESS_ENABLED = os.getenv('COMPRESS_ENABLED', 'false').lower() == 'true'
+COMPRESS_OFFLINE = os.getenv('COMPRESS_OFFLINE', 'true').lower() == 'true'
 COMPRESS_REBUILD_TIMEOUT=86400*365*10 # Don't force rebuilds
 
 INSTALLED_APPS = (
@@ -460,19 +462,20 @@ LOGGING = {
 IP_NETWORKS = [
 ]
 
-FQDN = None
+FQDN = DOMAIN
 
-LDAP_SERVER = None # for example, "ldaps://ldap.example.com"
-LDAP_USER_BASE_DN = None # for example, "uid=%s,ou=People,dc=example,dc=com"
-LDAP_GROUPS_BASE_DN = None # for example, "ou=Groups,dc=example,dc=com"
-LDAP_IGNORE_SSL=False # skip LDAP SSL certificate checks
-TOKEN_MAP = {} # map of LDAP groups to pubtkt tokens. For example, {"Administrators": "admins", "ExternalContractors": "ext"}
+LDAP_SERVER = os.getenv('LDAP_SERVER', None) # for example, "ldaps://ldap.example.com"
+LDAP_USER_BASE_DN = os.getenv('LDAP_USER_BASE_DN', None) # for example, "uid=%s,ou=People,dc=example,dc=com"
+LDAP_GROUPS_BASE_DN = os.getenv('LDAP_GROUPS_BASE_DN', None) # for example, "ou=Groups,dc=example,dc=com"
+LDAP_IGNORE_SSL = os.getenv('LDAP_IGNORE_SSL', 'false').lower() == 'true'
+# skip LDAP SSL certificate checks
+TOKEN_MAP = ast.literal_eval(os.getenv('TOKEN_MAP', "{}")) #  map of LDAP groups to pubtkt tokens. For example, {"Administrators": "admins", "ExternalContractors": "ext"}
 
 FAKE_TESTING = False # This uses LDAP stub and static SMS codes. Useful for smoke testing, but never set in production.
-ADMIN_CONTACT_EMAIL = None
+ADMIN_CONTACT_EMAIL = os.getenv("ADMIN_CONTACT_EMAIL", "help@"%DOMAIN)
 
 SEND_EMAILS = True # send "new device" and "new authenticator" emails
-NOTICES_FROM_EMAIL = None
+NOTICES_FROM_EMAIL = os.getenv('NOTICES_FROM_EMAIL', None)
 
 AUTHENTICATOR_NAME = "%s@hostname -%s-"
 
@@ -482,8 +485,6 @@ PUBTKT_PRIVKEY=None
 PUBTKT_PUBKEY=None
 PUBTKT_ALLOWED_DOMAINS=[]
 SAML_PUBKEY=None
-
-SECURE_COOKIES = True
 
 FUM_API_ENDPOINT=None
 FUM_ACCESS_TOKEN=None

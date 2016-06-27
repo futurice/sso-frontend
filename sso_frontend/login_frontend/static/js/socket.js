@@ -2,7 +2,7 @@ var socket;
 $(document).ready(function (){
  try {
  var rand_id = Math.random();
- socket = io.connect('https://DOMAIN');
+ socket = io.connect('SCHEME://SOCKET_IO_ADDR');
  socket.on("connect", function() {
    bid_public = $.cookie("v2public-browserid");
    if (bid_public) {
