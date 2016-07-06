@@ -11,6 +11,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_admin",
      "password": "testpassword"
     }, true);
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', 'Redirected to SMS authentication'
     @.test.assertHttpStatus 200
@@ -18,6 +19,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true);
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200, "Authentication succeeded"
 

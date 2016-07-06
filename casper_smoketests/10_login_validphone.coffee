@@ -20,6 +20,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
@@ -27,12 +28,14 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "1234"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertSelectorHasText '.alert', 'Incorrect one-time code. Only code from message with id', "Incorrect OTP warning"
    @.then ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/configure?_sso=internal&next=/index', "Redirected to configuration view"
     @.test.assertSelectorHasText('.skip_for_now', 'Skip for now', "Skip for now is available")
@@ -67,6 +70,7 @@ casper.start 'http://localhost:8000', ->
     @.test.assertSelectorHasText(".alert-info", "You're now remembered on this browser", "Remembered notification shown")
    @.then ->
     @.clickLabel("Forget this browser")
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200, "Forget this browser"
     @.test.assertSelectorHasText("button", "Remember me on this browser", "Browser marked as not remembered")

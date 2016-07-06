@@ -21,6 +21,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertSelectorHasText "h1", "Oops.", "CSRF error detected"
     @.test.assertUrlMatch 'http://localhost:8000/first/password?_sso=internal&next=/index'
@@ -39,6 +40,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
     @.test.assertHttpStatus 200
@@ -60,6 +62,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
     @.test.assertHttpStatus 200

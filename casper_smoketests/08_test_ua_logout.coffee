@@ -21,6 +21,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
@@ -28,6 +29,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/configure?_sso=internal&next=/index', "Redirected to configuration view"
     @.test.assertSelectorHasText('.skip_for_now', 'Skip for now', "Skip for now is available")
@@ -44,6 +46,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.capture("screenshots_sessions.png")
     @.test.assertHttpStatus 200
@@ -60,6 +63,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/sessions', "Redirected to SMS authentication"
@@ -67,6 +71,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/configure?_sso=internal&next=/sessions', "Redirected to configuration view"
     @.test.assertHttpStatus 200

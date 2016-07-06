@@ -20,6 +20,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
@@ -27,6 +28,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "1234"
     }, true)
+    @.wait(250)
    @.then ->
     @.capture("screenshots_sms_invalid.png")
     @.test.assertSelectorHasText '.alert', 'Incorrect one-time code. Only code from message with id', "Incorrect OTP warning"
@@ -34,6 +36,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.capture("screenshots_configuration.png")
     @.test.assertUrlMatch 'http://localhost:8000/configure?_sso=internal&next=/index', "Redirected to configuration view"

@@ -11,6 +11,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid2",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
    @.then ->
@@ -19,6 +20,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/configure?_sso=internal&next=/index', "Redirected to configuration view"
    @.then ->
@@ -39,6 +41,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid2",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.capture("screenshots_auth_sms-authenticator_available_not_used.png")
     @.test.assertHttpStatus 200
@@ -54,6 +57,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "asdf"
     }, true)
+    @.wait(250)
    @.then ->
     @.capture("screenshots_authenticator_invalid_otp.png")
     @.test.assertSelectorHasText(".alert-danger", "Incorrect OTP code.", "Incorrect OTP for authenticator")

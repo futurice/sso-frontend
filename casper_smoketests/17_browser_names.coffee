@@ -10,12 +10,14 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true);
+    @.wait(250)
    @.then ->
     @.clickLabel("Authenticate with SMS")
    @.then ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true);
+    @.wait(250)
    @.then ->
     @.capture("screenshots_browser_name.png")
     @.test.assertHttpStatus 200
@@ -24,6 +26,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
     })
     @.clickLabel("Skip this time")
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/index", "Redirected to front page (skip)"
@@ -38,6 +41,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.clickLabel("Authenticate with SMS")
    @.then ->
@@ -47,6 +51,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/name_your_browser?_sso=internal&_sc=on&next=/index", "Asking for browser name"
@@ -54,6 +59,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
     })
     @.clickLabel("Save and continue")
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/index", "Redirected to front page after entering empty name"
@@ -68,6 +74,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.clickLabel("Authenticate with SMS")
    @.then ->
@@ -77,6 +84,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/name_your_browser?_sso=internal&_sc=on&next=/index", "Asking for browser name"
@@ -85,6 +93,7 @@ casper.start 'http://localhost:8000', ->
      "name": "testname"
     })
     @.clickLabel("Save and continue")
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/index", "Redirected to front page after saving the name"
@@ -98,6 +107,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.clickLabel("Authenticate with SMS")
    @.then ->
@@ -107,6 +117,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/index", "Redirected to front page, as browser was already saved"
@@ -124,6 +135,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_admin",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
@@ -131,6 +143,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/configure?_sso=internal&next=/index", "Configuration view (admin)"
@@ -146,6 +159,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true);
+    @.wait(250)
    @.then ->
     @.clickLabel("Authenticate with SMS")
    @.then ->
@@ -154,6 +168,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true);
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/index", "Redirected to front page (test_valid)"

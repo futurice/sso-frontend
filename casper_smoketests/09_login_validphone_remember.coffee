@@ -13,6 +13,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
 
    @.then ->
     @.test.assertHttpStatus 200, "Authenticated with username and password"
@@ -36,17 +37,20 @@ casper.start 'http://localhost:8000', ->
    @.then ->
     @.echo("Check remember me")
     @.click("input[name='my_computer']")
+    @.wait(250)
     @.fill("form[name='loginform']", {
      "username": "test_valid",
      "password": "testpassword"
     }, true)
-
+    @.wait(250)
    @.then ->
     @.echo("Check remember me")
     @.click("input[name='my_computer']")
+    @.wait(250)
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
 
@@ -56,7 +60,7 @@ casper.start 'http://localhost:8000', ->
 
    @.then ->
     @.clickLabel("Sign out")
-
+    @.wait(250)
 
    @.thenOpen("http://localhost:8000")
    @.then ->
@@ -64,13 +68,16 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
 
    @.then ->
     @.echo("Check remember me")
     @.click("input[name='my_computer']")
+    @.wait(250)
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
 

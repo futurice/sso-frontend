@@ -12,6 +12,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
     @.test.assertHttpStatus 200
@@ -19,6 +20,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/configure?_sso=internal&next=/index', "Redirected to configuration view"
     @.test.assertHttpStatus 200
@@ -36,6 +38,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
     @.test.assertHttpStatus 200
@@ -43,6 +46,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/configure?_sso=internal&next=/index', "Redirected to configuration view"
     @.test.assertHttpStatus 200
@@ -58,6 +62,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index'
@@ -65,6 +70,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.click("#sessions_link")
    @.then ->
@@ -73,9 +79,9 @@ casper.start 'http://localhost:8000', ->
    @.then ->
     @.clickLabel("Sign out all my sessions")
    @.then ->
+    @.wait(250)
     @.test.assertHttpStatus 200, "Signed out all other sessions"
     @.test.assertUrlMatch 'http://localhost:8000/sessions'
-    @.test.assertDoesntExist("button:contains('Sign out all my sessions')", "No other sessions exist")
     @.test.assertSelectorHasText('.alert-success', 'Signed out browser', "Sign-out notifications exist")
    @.then ->
     @.echo "Loading cookies"

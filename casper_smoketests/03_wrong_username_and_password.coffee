@@ -11,6 +11,7 @@ casper.start 'http://localhost:8000', ->
      "username": "wrong_username",
      "password": "wrong_password"
     }, true)
+    @.wait(250)
    @.then ->
     @.capture("screenshots_invalid_user_or_password.png")
     @.test.assertUrlMatch 'http://localhost:8000/first/password?_sso=internal&next=/index', "On first step authentication page"

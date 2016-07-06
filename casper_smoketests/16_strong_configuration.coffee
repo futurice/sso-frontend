@@ -11,6 +11,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication"
@@ -18,16 +19,19 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/configure?_sso=internal&next=/index', "Redirected to configuration view"
     @.test.assertHttpStatus 200
    @.then ->
     @.clickLabel("Always use SMS")
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertSelectorHasText(".alert-success", "Switched to SMS authentication", "Switched to SMS authentication")
    @.then ->
     @.click(".configure_authenticator_btn")
+    @.wait(250)
    @.thenOpen("http://localhost:8000/configure")
    @.then ->
     @.test.assertHttpStatus 200
@@ -51,6 +55,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch 'http://localhost:8000/second/authenticator?_sso=internal&next=/index', "Redirected to Authenticator authentication"
@@ -60,6 +65,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form[name='loginform']", {
      "otp": "12345"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertUrlMatch "http://localhost:8000/name_your_browser?_sso=internal&_sc=on&next=/index", "Asking for browser name"

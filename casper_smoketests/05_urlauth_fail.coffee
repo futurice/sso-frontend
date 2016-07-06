@@ -12,6 +12,7 @@ casper.start 'http://localhost:8000/urlauth/asdf', ->
      "username": "test_valid",
      "password": "testpassword"
     }, true)
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
    @.thenOpen("http://localhost:8000/urlauth/asdf")

@@ -11,6 +11,7 @@ casper.start 'http://localhost:8000', ->
      "username": "test",
      "password": "testpassword"
     }, true);
+    @.wait(250)
    @.then ->
     @.capture("screenshots_nophone.png")
     @.test.assertUrlMatch 'http://localhost:8000/second/sms?_sso=internal&next=/index', "Redirected to SMS authentication page"

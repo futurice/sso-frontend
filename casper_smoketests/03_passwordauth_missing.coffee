@@ -10,6 +10,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form", {
      "username": "wrong_username"
     }, true);
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/first/password?_sso=internal&next=/index', "No redirect after incorrect credentials"
     @.test.assertHttpStatus 200
@@ -19,6 +20,7 @@ casper.start 'http://localhost:8000', ->
     @.fill("form", {
      "password": "wrong_password"
     }, true);
+    @.wait(250)
    @.then ->
     @.capture("screenshots_missing_user_or_password.png")
     @.test.assertUrlMatch 'http://localhost:8000/first/password?_sso=internal&next=/index', "No redirect after incorrect credentials"
