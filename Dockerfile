@@ -25,7 +25,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN mkdir /opt/static /opt/node
 RUN chown -R app /opt/static/ /opt/node
 
-RUN wget -qO /opt/node.tar.gz https://nodejs.org/dist/v0.10.39/node-v0.10.39-linux-x64.tar.gz \
+RUN wget -qO /opt/node.tar.gz https://nodejs.org/dist/v0.10.40/node-v0.10.40-linux-x64.tar.gz \
     && tar xfz /opt/node.tar.gz -C /opt/node --strip-components 1 \
     && ln -s /opt/node/bin/node /usr/bin/node \
     && ln -s /opt/node/bin/npm /usr/bin/npm
