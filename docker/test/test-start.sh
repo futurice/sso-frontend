@@ -16,5 +16,9 @@ service postgresql start
 
 sleep 10
 
+# run casperjs tests
 ./sso_frontend/manage.py loaddata sso_frontend/login_frontend/fixtures/casper.json
 ./node_modules/casperjs/bin/casperjs test --verbose --loglevel=debug casper_smoketests
+
+#run some django tests
+./sso_frontend/manage.py test sso_frontend/login_frontend
