@@ -294,7 +294,7 @@ INSTALLED_APPS = (
     'compressor',
     'login_frontend',
     'openid_provider',
-    'south',
+    #'south',
     'huey.djhuey',
     'saml2idp',
     'admin_frontend',

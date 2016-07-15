@@ -827,7 +827,7 @@ class KeystrokeSequence(models.Model):
 
     resolution = models.TextField(blank=True, null=True) # Screen resolution, used to determine whether external display was used.
     fieldname = models.CharField(max_length=1, choices=KEYSTROKE_FIELD)
-    was_correct = models.BooleanField()
+    was_correct = models.BooleanField(default=False)
     timestamp = models.DateTimeField()
     timing = models.TextField()
 
