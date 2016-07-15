@@ -685,11 +685,11 @@ def get_authenticator_qr(request, **kwargs):
     reloading / linking. """
     if not bcache.get("%s-authenticator_qr_nonce" % request.browser.bid_public) == kwargs["single_use_code"]:
         custom_log(request, "qr: Invalid one-time code for QR. Referrer: %s" % request.META.get("HTTP_REFERRER"), level="warn")
-        return HttpResponseForbidden(open(settings.PROJECT_ROOT + "/static/img/invalid_nonce.png").read(), mimetype="image/png")
+        return HttpResponseForbidden(open(settings.PROJECT_ROOT + "/static/img/invalid_nonce.png").read(), content_type="image/png")
 
     if not request.browser.user.strong_authenticator_secret:
         custom_log(request, "qr: Valid qr_nonce, but authenticator_secret is None", level="error")
-        return HttpResponseForbidden(open(settings.PROJECT_ROOT + "/static/img/valid_nonce_no_secret.png").read(), mimetype="image/png")
+        return HttpResponseForbidden(open(settings.PROJECT_ROOT + "/static/img/valid_nonce_no_secret.png").read(), content_type="image/png")
 
     # Delete QR nonce to prevent replay.
     bcache.delete("%s-authenticator_qr_nonce" % request.browser.bid_public)
