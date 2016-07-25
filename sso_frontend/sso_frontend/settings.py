@@ -295,7 +295,7 @@ INSTALLED_APPS = (
     'login_frontend',
     'openid_provider',
     #'south',
-    'huey.djhuey',
+    'huey.contrib.djhuey',
     'saml2idp',
     'admin_frontend',
     'cspreporting',
@@ -474,7 +474,7 @@ TOKEN_MAP = ast.literal_eval(os.getenv('TOKEN_MAP', "{}")) #  map of LDAP groups
 FAKE_TESTING = os.getenv('FAKE_TESTING', 'false').lower() == 'true' # This uses LDAP stub and static SMS codes. Useful for smoke testing, but never set in production.
 ADMIN_CONTACT_EMAIL = os.getenv("ADMIN_CONTACT_EMAIL", "help@%s" % DOMAIN)
 
-SEND_EMAILS = True # send "new device" and "new authenticator" emails
+SEND_EMAILS = os.getenv('SEND_EMAILS', 'true').lower() == 'true' # send "new device" and "new authenticator" emails
 NOTICES_FROM_EMAIL = os.getenv('NOTICES_FROM_EMAIL', None)
 
 AUTHENTICATOR_NAME = "%s@hostname -%s-"
