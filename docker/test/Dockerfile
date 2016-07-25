@@ -12,14 +12,18 @@ ENV SAML_PUBKEY /opt/app/docker/test/test-samlkey
 ENV DB_HOST ''
 ENV DB_USER ''
 ENV DB_PASSWORD ''
+ENV SEND_EMAILS false
 
 USER postgres
 RUN service postgresql start && psql --command 'CREATE USER root;' && createdb -O root login && psql --command 'ALTER USER root CREATEDB;'
 USER root
 
-COPY docker/test/test-supervisord.conf /etc/supervisor/test-supervisord.conf
+COPY test-supervisord.conf /etc/supervisor/test-supervisord.conf
 
-RUN node_modules/coffee-script/bin/coffee -c casper_smoketests/*.coffee
+RUN /opt/app/node_modules/coffee-script/bin/coffee -c casper_smoketests/*.coffee
 RUN rm casper_smoketests/*.coffee
+
+#RUN rm sso_frontend/login_frontend/migrations/00*
+#RUN rm sso_frontend/cspreporting/migrations/00*
 
 CMD bash -C '/opt/app/docker/test/test-start.sh'
