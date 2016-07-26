@@ -30,6 +30,7 @@ casper.start 'http://localhost:8000', ->
     @.test.assertHttpStatus 200
    @.then ->
     @.clickLabel("Sign out")
+    @.wait(250)
    @.then ->
     @.test.assertUrlMatch 'http://localhost:8000/logout?logout=on'
     @.test.assertSelectorHasText('.alert-success', 'You are now signed out.', "Signed out message")

@@ -12,7 +12,7 @@ from django_statsd.clients import statsd as sd
 import random
 
 # This is deprecated in 1.7.
-from django.core.cache import get_cache
+from django.core.cache import caches
 
 class Command(BaseCommand): # pragma: no cover
     """ Fetches all users from the backend and updates local database """
@@ -26,7 +26,7 @@ class Command(BaseCommand): # pragma: no cover
         to avoid spikes on database access, and to periodically
         validate contents of the local database. """
         api = slumber.API(settings.FUM_API_ENDPOINT, auth=_slumber_auth.TokenAuth(settings.FUM_ACCESS_TOKEN))
-        cache = get_cache("user_hashes")
+        cache = caches["user_hashes"]
 
         c = 1
         while True:

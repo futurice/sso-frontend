@@ -9,7 +9,7 @@ from openid.yadis.discover import DiscoveryFailure
 from openid.fetchers import HTTPFetchingError
 
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.importlib import import_module
+from importlib import import_module
 
 def import_module_attr(path):
     package, module = path.rsplit('.', 1)

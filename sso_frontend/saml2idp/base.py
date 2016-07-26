@@ -6,14 +6,14 @@ import uuid
 # Django and other library imports:
 from BeautifulSoup import BeautifulStoneSoup
 from django.core.exceptions import ImproperlyConfigured
-from django.core.cache import get_cache
+from django.core.cache import caches
 # local app imports:
 import codex
 import exceptions
 import saml2idp_metadata
 import xml_render
 
-dcache = get_cache("default")
+dcache = caches["default"]
 
 from login_frontend.models import User
 

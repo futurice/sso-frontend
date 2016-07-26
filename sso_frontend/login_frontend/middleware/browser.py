@@ -11,7 +11,7 @@ Also, session cookie is automatically added if it does not exist yet.
 
 from django.conf import settings
 from django.contrib import messages
-from django.core.cache import get_cache
+from django.core.cache import caches
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import timezone
@@ -24,9 +24,9 @@ import re
 import os
 import sys
 
-bcache = get_cache("browsers")
-dcache = get_cache("default")
-user_cache = get_cache("users")
+bcache = caches["browsers"]
+dcache = caches["default"]
+user_cache = caches["users"]
 
 
 log = logging.getLogger(__name__)

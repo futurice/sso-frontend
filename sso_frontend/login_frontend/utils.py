@@ -30,12 +30,12 @@ import sys
 import urlparse
 from django_statsd.clients import statsd as sd
 
-from django.core.cache import get_cache
+from django.core.cache import caches
 
-dcache = get_cache("default")
-user_cache = get_cache("users")
-ucache = get_cache("user_mapping")
-bcache = get_cache("browsers")
+dcache = caches["default"]
+user_cache = caches["users"]
+ucache = caches["user_mapping"]
+bcache = caches["browsers"]
 
 log = logging.getLogger(__name__)
 timing_log = logging.getLogger("timing_data")

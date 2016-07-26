@@ -1,7 +1,8 @@
 from django_statsd.clients import statsd as sd
-from django.core.cache import get_cache
-user_cache = get_cache("users")
-bcache = get_cache("browsers")
+from django.core.cache import caches
+
+user_cache = caches["users"]
+bcache = caches["browsers"]
 
 class LocationMiddleware(object):
     @sd.timer("login_frontend.middleware.process_request")

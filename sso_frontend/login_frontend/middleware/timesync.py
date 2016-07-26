@@ -1,6 +1,7 @@
 from django_statsd.clients import statsd as sd
-from django.core.cache import get_cache
-bcache = get_cache("browsers")
+from django.core.cache import caches
+
+bcache = caches["browsers"]
 
 class TimesyncMiddleware(object):
     @sd.timer("TimesyncMiddleware.process_request")

@@ -3,7 +3,7 @@ from distutils.version import LooseVersion
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
-from django.core.cache import get_cache
+from django.core.cache import caches
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
@@ -25,9 +25,9 @@ import time
 import urllib
 import uuid
 
-dcache = get_cache("default")
-bcache = get_cache("browsers")
-user_cache = get_cache("users")
+dcache = caches["default"]
+bcache = caches["browsers"]
+user_cache = caches["users"]
 
 log = logging.getLogger(__name__)
 
