@@ -37,6 +37,7 @@ casper.start 'http://localhost:8000', ->
     @.test.assertHttpStatus 200
    @.then ->
     @.clickLabel("Prompt for Authenticator")
+    @.wait(250)
    @.then ->
     @.test.assertHttpStatus 200
     @.test.assertSelectorHasText(".alert-success", "Default setting changed to Authenticator", "Switched to Authenticator authentication")
