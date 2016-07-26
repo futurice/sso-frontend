@@ -8,7 +8,7 @@ This does not include error views (see error_views.py) or admin UI (see admin_fr
 from django.conf import settings
 from django.contrib import auth as django_auth
 from django.contrib import messages
-from django.core.cache import get_cache
+from django.core.cache import caches
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import HttpResponse
@@ -40,10 +40,10 @@ if settings.FAKE_TESTING:
 else:
     from login_frontend.ldap_auth import LdapLogin
 
-dcache = get_cache("default")
-ucache = get_cache("user_mapping")
-bcache = get_cache("browsers")
-user_cache = get_cache("users")
+dcache = caches["default"]
+ucache = caches["user_mapping"]
+bcache = caches["browsers"]
+user_cache = caches["users"]
 
 
 log = logging.getLogger(__name__)

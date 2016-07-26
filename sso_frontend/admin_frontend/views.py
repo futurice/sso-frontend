@@ -21,9 +21,9 @@ import logging
 import sys
 import os
 from django_statsd.clients import statsd as sd
-from django.core.cache import get_cache
+from django.core.cache import caches
 
-user_cache = get_cache("users")
+user_cache = caches["users"]
 
 log = logging.getLogger(__name__)
 user_log = logging.getLogger(__name__)

@@ -11,8 +11,7 @@ import hashlib
 from django_statsd.clients import statsd as sd
 import random
 
-# This is deprecated in 1.7.
-from django.core.cache import get_cache
+from django.core.cache import caches
 
 class Command(BaseCommand): # pragma: no cover
     args = ''
@@ -21,8 +20,8 @@ class Command(BaseCommand): # pragma: no cover
 
     def handle(self, *args, **options):
         api = slumber.API(settings.FUM_API_ENDPOINT, auth=_slumber_auth.TokenAuth(settings.FUM_ACCESS_TOKEN))
-        cache = get_cache("user_mapping")
-        user_cache = get_cache("users")
+        cache = caches["user_mapping"]
+        user_cache = caches["users"]
 
         c = 1
         while True:

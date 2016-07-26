@@ -6,8 +6,6 @@ from login_frontend.models import User
 
 from django_statsd.clients import statsd as sd
 
-# This is deprecated in 1.7.
-from django.core.cache import get_cache
 
 class Command(BaseCommand): # pragma: no cover
     args = ''

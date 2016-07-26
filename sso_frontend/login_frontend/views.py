@@ -9,7 +9,7 @@ from StringIO import StringIO
 from io import BytesIO
 from django.conf import settings
 from django.contrib import messages
-from django.core.cache import get_cache
+from django.core.cache import caches
 from django.core.mail import mail_admins
 from django.core.urlresolvers import reverse
 from django.core.validators import validate_email
@@ -51,10 +51,10 @@ import urllib
 import urlparse
 import PIL, PIL.ImageFont, PIL.ImageDraw, PIL.Image
 
-dcache = get_cache("default")
-ucache = get_cache("user_mapping")
-user_cache = get_cache("users")
-bcache = get_cache("browsers")
+dcache = caches["default"]
+ucache = caches["user_mapping"]
+user_cache = caches["users"]
+bcache = caches["browsers"]
 
 log = logging.getLogger(__name__)
 r = redis.Redis()

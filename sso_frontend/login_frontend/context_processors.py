@@ -20,15 +20,15 @@ from django.contrib.auth.models import User as DjangoUser
 from login_frontend.models import Browser
 from django.utils.functional import SimpleLazyObject
 from django_statsd.clients import statsd as sd
-from django.core.cache import get_cache
+from django.core.cache import caches
 from login_frontend.utils import get_return_url
 import logging
 
 logger = logging.getLogger(__name__)
 
-dcache = get_cache("default")
-bcache = get_cache("browsers")
-user_cache = get_cache("users")
+dcache = caches["default"]
+bcache = caches["browsers"]
+user_cache = caches["users"]
 
 __all__ = ["add_misc_info", "add_user", "add_session_info"]
 

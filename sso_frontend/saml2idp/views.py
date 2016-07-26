@@ -32,10 +32,10 @@ import os
 import sys
 import statsd
 from utils import get_destination_service, parse_google_saml
-from django.core.cache import get_cache
+from django.core.cache import caches
 import logging
 
-dcache = get_cache("default")
+dcache = caches["default"]
 
 log = logging.getLogger(__name__)
 

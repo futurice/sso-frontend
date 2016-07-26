@@ -12,14 +12,14 @@ import logging
 import datetime
 import statsd
 from random import randint
-from django.core.cache import get_cache
+from django.core.cache import caches
 
 
 from django.conf import settings
 
 logger = logging.getLogger(__name__)
 sd = statsd.StatsClient()
-dcache = get_cache("default")
+dcache = caches["default"]
 
 
 __all__ = ["Command"]

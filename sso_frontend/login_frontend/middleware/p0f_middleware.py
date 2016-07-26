@@ -5,7 +5,7 @@ P0f middleware: logs p0f information for browser.
 """
 
 from django.conf import settings
-from django.core.cache import get_cache
+from django.core.cache import caches
 from django.core.exceptions import MiddlewareNotUsed
 from django.utils import timezone
 from django_statsd.clients import statsd as sd
@@ -15,7 +15,7 @@ import logging
 import p0f
 import socket
 
-bcache = get_cache("browsers")
+bcache = caches["browsers"]
 
 log = logging.getLogger(__name__)
 

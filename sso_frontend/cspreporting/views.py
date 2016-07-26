@@ -21,9 +21,9 @@ import json
 import logging
 import re
 from django_statsd.clients import statsd as sd
-from django.core.cache import get_cache
+from django.core.cache import caches
 
-dcache = get_cache("default")
+dcache = caches["default"]
 
 log = logging.getLogger(__name__)
 user_log = logging.getLogger(__name__)
