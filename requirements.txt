@@ -5,7 +5,7 @@ django-statsd-mozilla==0.3.16
 statsd==2.1.2
 p0f==0.1.1
 BeautifulSoup==3.2.1
-Django==1.7.11
+Django==1.8.14
 M2Crypto==0.22.3
 #South==0.8.4
 auth-pubtkt==0.1
@@ -38,6 +38,6 @@ reportlab==3.0
 simplekml==1.2.3
 supervisor-stdout==0.1.1
 uwsgi==2.0.12
-psycopg2==2.5.2
+psycopg2==2.6.2
 pillow
 # django-debug-toolbar
