@@ -23,6 +23,41 @@ Installation
 8. Configure uWSGI and nginx. Example configuration files available under ```example_configurations``` folder. Modifying large_client_header_buffers is essential, as valid OpenID/SAML requests easily exceed the default limit.
 9. Install npm and node.js. Run ```npm install .``` on node_socket directory. Run app.js. This provides websockets, used for simultaneous sign-ins and sign-outs.
 
+Running on docker
+------------------
+
+Running tests:
+```
+docker build -t sso-frontend .
+```
+```
+docker build -t sso-test docker/test
+```
+```
+docker run sso-test
+```
+
+Running sso-frontend:
+
+You'll need connections to FUM and to a ldap-server. Set the correct addresses in the dockerfile. 
+
+build & run postgresql:
+```
+docker build -t postgres docker/postgresql
+```
+```
+docker run postgres
+```
+Set the correct ip-address of the postgres container in sso-frontend dockerfile. 
+```
+docker build -t sso-frontend
+```
+```
+docker run -p 8000:8000 sso-frontend
+```
+sso-frontend can now be viewed on ```localhost:8000``
+
+
 p0f (optional)
 ------------------
 
