@@ -55,11 +55,11 @@ docker build -t sso-frontend
 ```
 docker run -p 8000:8000 sso-frontend
 ```
-sso-frontend can now be viewed on ```localhost:8000``
+sso-frontend can now be viewed on ```localhost:8000```
 
 
-p0f (optional)
 ------------------
+p0f (optional)
 
 p0f is used for guessing additional information about the client, including OS, network distance, network type and uptime.
 
