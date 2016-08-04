@@ -90,7 +90,7 @@ ENV LDAP_GROUPS_BASE_DN ou=Groups,dc=futurice,dc=com
 ENV LDAP_SERVER ldap://172.17.0.2
 
 ENV FUM_API_ENDPOINT http://172.17.0.3:8000/api
-ENV DEBUG True
+ENV DEBUG False
 
 
 
