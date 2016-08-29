@@ -475,9 +475,9 @@ FAKE_TESTING = os.getenv('FAKE_TESTING', 'false').lower() == 'true' # This uses 
 ADMIN_CONTACT_EMAIL = os.getenv("ADMIN_CONTACT_EMAIL", "help@%s" % DOMAIN)
 
 SEND_EMAILS = os.getenv('SEND_EMAILS', 'true').lower() == 'true' # send "new device" and "new authenticator" emails
+
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', None)
-
 NOTICES_FROM_EMAIL = os.getenv('NOTICES_FROM_EMAIL', None)
 
 AUTHENTICATOR_NAME = "%s@hostname -%s-"

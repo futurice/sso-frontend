@@ -79,8 +79,6 @@ ENV DOMAIN login.futurice.com
 ENV SCHEME http
 ENV SOCKET_IO_ADDR localhost:8080
 ENV SOCKET_IO_SCHEME ws
-ENV SECURE_COOKIES false
-ENV FAKE_TESTING false
 
 ENV LDAP_USER_BASE_DN uid=%s,ou=People,dc=futurice,dc=com
 ENV LDAP_GROUPS_BASE_DN ou=Groups,dc=futurice,dc=com
