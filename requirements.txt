@@ -37,7 +37,7 @@ browser_vulnerabilities==0.1.0
 reportlab==3.0
 simplekml==1.2.3
 supervisor-stdout==0.1.1
-uwsgi==2.0.13.1
+uwsgi==2.0.12
 psycopg2==2.6.2
 pillow
 # django-debug-toolbar

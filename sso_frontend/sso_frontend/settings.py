@@ -143,7 +143,7 @@ SHORT_DATETIME_FORMAT='Y-m-d H:i'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ast.literal_eval(os.getenv('ALLOWED_HOSTS', "[]"))
+ALLOWED_HOSTS = ast.literal_eval(os.getenv('ALLOWED_HOSTS', '[\'%s\']' %DOMAIN)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -475,11 +475,15 @@ FAKE_TESTING = os.getenv('FAKE_TESTING', 'false').lower() == 'true' # This uses 
 ADMIN_CONTACT_EMAIL = os.getenv("ADMIN_CONTACT_EMAIL", "help@%s" % DOMAIN)
 
 SEND_EMAILS = os.getenv('SEND_EMAILS', 'true').lower() == 'true' # send "new device" and "new authenticator" emails
+EMAIL_HOST = os.getenv('EMAIL_HOST', None)
+EMAIL_PORT = os.getenv('EMAIL_PORT', None)
+
 NOTICES_FROM_EMAIL = os.getenv('NOTICES_FROM_EMAIL', None)
 
 AUTHENTICATOR_NAME = "%s@hostname -%s-"
 
 P0F_SOCKET = None
+
 
 PUBTKT_PRIVKEY=None
 PUBTKT_PUBKEY = os.getenv('PUBTKT_PUBKEY', None)
@@ -489,6 +493,10 @@ SAML_PUBKEY = os.getenv('SAML_PUBKEY', None)
 FUM_ADDRESS=os.getenv('FUM_ADDRESS', None)
 FUM_API_ENDPOINT=os.getenv('FUM_API_ENDPOINT', None)
 FUM_ACCESS_TOKEN=os.getenv('FUM_ACCESS_TOKEN', None)
+
+SMS_GATEWAY_URL=os.getenv('SMS_GATEWAY_URL', None)
+SMS_USERNAME=os.getenv('SMS_USERNAME', None)
+SMS_PASSWORD=os.getenv('SMS_PASSWORD', None)
 
 EMERGENCY_FONT = PROJECT_ROOT+"data/Consolas.ttf"
 
