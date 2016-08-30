@@ -13,6 +13,7 @@ ENV DB_HOST ''
 ENV DB_USER ''
 ENV DB_PASSWORD ''
 ENV SEND_EMAILS false
+ENV SECURE_COOKIES false
 
 USER postgres
 RUN service postgresql start && psql --command 'CREATE USER root;' && createdb -O root login && psql --command 'ALTER USER root CREATEDB;'
