@@ -119,14 +119,14 @@ SAML2IDP_CONFIG = {
     'autosubmit': False,
     'issuer': '%s://%s'%(SCHEME,DOMAIN),
     'signing': True,
-    'certificate_file': SAML_CERTS_DIR + '/saml2idp/keys/certificate.pem',
-    'private_key_file': SAML_CERTS_DIR + '/saml2idp/keys/private-key.pem'
+    'certificate_file': SAML_CERTS_DIR + 'saml2idp/keys/certificate.pem',
+    'private_key_file': SAML_CERTS_DIR + 'saml2idp/keys/private-key.pem'
 }
 SAML2IDP_REMOTES = {
     # Group of SP CONFIGs.
     # friendlyname: SP config
     'google_apps': {
-        'acs_url': 'https://www.google.com/a/futurice.com/acs',
+        'acs_url': 'https://www.google.com/a/' + TOP_DOMAIN + '/acs',
         'processor': 'saml2idp.google_apps.Processor',
     }
 }
@@ -143,7 +143,7 @@ SHORT_DATETIME_FORMAT='Y-m-d H:i'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ast.literal_eval(os.getenv('ALLOWED_HOSTS', '[\'%s\']' %DOMAIN))
+ALLOWED_HOSTS = [DOMAIN]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -485,9 +485,9 @@ AUTHENTICATOR_NAME = "%s@hostname -%s-"
 P0F_SOCKET = None
 
 
-PUBTKT_PRIVKEY=None
+PUBTKT_PRIVKEY= os.getenv('PUBTKT_PRIVKEY', None)
 PUBTKT_PUBKEY = os.getenv('PUBTKT_PUBKEY', None)
-PUBTKT_ALLOWED_DOMAINS=[]
+PUBTKT_ALLOWED_DOMAINS=[TOP_DOMAIN]
 SAML_PUBKEY = os.getenv('SAML_PUBKEY', None)
 
 FUM_ADDRESS=os.getenv('FUM_ADDRESS', None)

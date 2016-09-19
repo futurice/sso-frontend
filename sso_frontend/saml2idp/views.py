@@ -142,7 +142,7 @@ def login_begin(request, *args, **kwargs):
     dcache.set("saml-SAMLRequest-%s" % saml_id, source['SAMLRequest'], 3600 * 12)
     dcache.set("saml-RelayState-%s" % saml_id, source['RelayState'], 3600 * 12)
     custom_log(request, "Storing SAMLRequest=%s and RelayState=%s with saml_id=%s" % (source['SAMLRequest'], source['RelayState'], saml_id), level="debug")
-    return redirect_with_get_params("saml2idp.views.login_process", {"saml_id": saml_id})
+    return redirect_with_get_params("login_process", {"saml_id": saml_id})
 
 @protect_view("saml.login_init", required_level=Browser.L_STRONG)
 def login_init(request, resource, **kwargs):

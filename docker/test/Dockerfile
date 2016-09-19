@@ -1,12 +1,13 @@
 FROM sso-frontend
 
 RUN npm install phantomjs-prebuilt slimerjs casperjs coffee-script
-RUN apt-get install -y postgresql libpq-dev
+RUN apt-get update && apt-get install -y postgresql libpq-dev
 
 ENV PHANTOMJS_EXECUTABLE /opt/app/node_modules/phantomjs-prebuilt/bin/phantomjs
 ENV FAKE_TESTING true
 ENV DEBUG true
 ENV PUBTKT_PUBKEY /opt/app/docker/test/test-pubtktkey
+ENV PUBTKT_PRIVKEY default_privkey
 ENV SAML_PUBKEY /opt/app/docker/test/test-samlkey
 
 ENV DB_HOST ''

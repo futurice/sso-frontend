@@ -10,7 +10,8 @@ sed -i "s#SCHEME#${SCHEME}#" /opt/static/js/socket.js
 
 service postgresql start
 
-./sso_frontend/manage.py makemigrations openid_provider
+sleep 20
+
 ./sso_frontend/manage.py migrate --noinput
 
 /usr/bin/supervisord -c /etc/supervisor/test-supervisord.conf &

@@ -10,5 +10,4 @@ sed -i "s#SCHEME#${SCHEME}#" /opt/static/js/socket.js
 
 update-ca-certificates
 
-./sso_frontend/manage.py makemigrations openid_provider
 ./sso_frontend/manage.py migrate --noinput 
