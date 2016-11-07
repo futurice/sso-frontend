@@ -495,7 +495,7 @@ Requested from %s""" % request.remote_ip
         Returns (code_id, sms_code) tuple. code_id is random
         id for code, to avoid confusion with duplicate/old messages. """
         if settings.FAKE_TESTING:
-            code = "12345"
+            code = "1234567"
         else:
             code = ""
             for _ in range(length):

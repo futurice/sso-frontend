@@ -29,37 +29,41 @@ Running on docker
 Running tests:
 ```
 docker build -t sso-frontend .
-```
-```
 docker build -t sso-test docker/test
-```
-```
 docker run sso-test
 ```
 
-Running sso-frontend:
+Running sso-frontend locally:
 
-You'll need connections to FUM and to a ldap-server. Set the correct addresses in the dockerfile. 
-
-build & run postgresql:
-```
-docker build -t postgres docker/postgresql
-```
-```
-docker run postgres
-```
-Set the correct ip-address of the postgres container in sso-frontend dockerfile. 
-```
-docker build -t sso-frontend
-```
-```
-docker run -p 8000:8000 sso-frontend
-```
-sso-frontend can now be viewed on ```localhost:8000```
+In production sso-frontend needs connections to FUM and an ldap-server. This development setup uses mocked ldap connections (when `FAKE_TESTING=True`).
 
 
-------------------
+```
+docker run -d --restart always --name postgres postgres
+docker exec -it postgres sh -c "createdb -Upostgres sso-frontend"
+```
+```
+docker build --rm -t sso-frontend .
+```
+```
+docker run --rm -it -p 8000:8000 \
+ -e FAKE_TESTING=true \
+ -e DB_HOST=postgres \
+ -e DB_USER=postgres \
+ -e DB_NAME=sso-frontend \
+ -e DEBUG=true \
+ -e SECURE_COOKIES=false \
+ -e SEND_EMAILS=false \
+ --link postgres:postgres \
+ --name sso-frontend \
+  sso-frontend 
+```
+sso-frontend can now be viewed on ```localhost:8000``` Credentials for logging in can be found in ldap_stub.py file. If you want to login with a test user and get past the 2-factor authentication, you have to set a phone number for one of the test users (with `FAKE_TESTING=true`, no text messages will be sent, the code is always "1234567"). This can be done via django shell (`manage.py shell_plus`)
+
+
+
 p0f (optional)
+--------------
 
 p0f is used for guessing additional information about the client, including OS, network distance, network type and uptime.
 
