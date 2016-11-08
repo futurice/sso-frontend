@@ -24,6 +24,7 @@ import sys
 import time
 import urllib
 import uuid
+import string
 
 dcache = get_cache("default")
 bcache = get_cache("browsers")
@@ -430,6 +431,8 @@ class Browser(models.Model):
     @sd.timer("login_frontend.models.Browser.validate_sms")
     def validate_sms(self, otp):
         """ Returns tuple, (status, message). Message is optional. """
+        if not self.is_ascii(otp):
+            return (False, "Non-ascii characters in the sms code")
         if not self.user:
             # TODO: this is invalid state and should never happen. Handle this properly.
             return (False, None)
@@ -976,6 +979,9 @@ class User(models.Model):
           describing the problem.
         """
 
+        if not self.is_ascii(code):
+            return (False, "Non-ascii characters in the authenticator code")
+
         if not self.strong_authenticator_secret:
             return (False, "Authenticator is not configured")
 
@@ -1023,6 +1029,12 @@ class User(models.Model):
                     return (False, message)
 
         return (False, "Incorrect OTP code.")
+    
+    def is_ascii(self, code):
+        for c in code:
+            if c not in set(string.printable):
+                return False
+        return True
 
     @sd.timer("login_frontend.models.User.refresh_strong")
     def refresh_strong(self, email, phone1, phone2, **kwargs):
