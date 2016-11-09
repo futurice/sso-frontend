@@ -23,7 +23,7 @@ Installation
 8. Configure uWSGI and nginx. Example configuration files available under ```example_configurations``` folder. Modifying large_client_header_buffers is essential, as valid OpenID/SAML requests easily exceed the default limit.
 9. Install npm and node.js. Run ```npm install .``` on node_socket directory. Run app.js. This provides websockets, used for simultaneous sign-ins and sign-outs.
 
-Running on docker
+Docker for local development
 ------------------
 
 Running tests:
@@ -58,7 +58,11 @@ docker run --rm -it -p 8000:8000 \
  --name sso-frontend \
   sso-frontend 
 ```
-sso-frontend can now be viewed on ```localhost:8000``` Credentials for logging in can be found in ldap_stub.py file. If you want to login with a test user and get past the 2-factor authentication, you have to set a phone number for one of the test users (with `FAKE_TESTING=true`, no text messages will be sent, the code is always "1234567"). This can be done via django shell (`manage.py shell_plus`)
+Add two test users to the database:
+```
+docker exec sso-frontend ./sso_frontend/manage.py create_test_users
+```
+Sso-frontend can now be viewed on ```localhost:8000```. The two test users that can be used for logging in are `test_admin` and `test`. Password for both users is `testpassword`. When `FAKE_TESTING=true`, no text messages will be sent in the 2-factor authentication phase, and the sms code for both test users is `1234567`.
 
 
 
